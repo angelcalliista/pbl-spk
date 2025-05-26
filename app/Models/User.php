@@ -9,40 +9,25 @@ use Illuminate\Notifications\Notifiable;
 
 class User extends Authenticatable
 {
-    /** @use HasFactory<\Database\Factories\UserFactory> */
-    use HasFactory, Notifiable;
+    use Notifiable;
 
-    /**
-     * The attributes that are mass assignable.
-     *
-     * @var list<string>
-     */
-    protected $fillable = [
-        'name',
-        'email',
-        'password',
-    ];
-
-    /**
-     * The attributes that should be hidden for serialization.
-     *
-     * @var list<string>
-     */
-    protected $hidden = [
-        'password',
-        'remember_token',
-    ];
-
-    /**
-     * Get the attributes that should be cast.
-     *
-     * @return array<string, string>
-     */
-    protected function casts(): array
+    // Kolom yang digunakan untuk login (default: email)
+    public function getAuthIdentifierName()
     {
-        return [
-            'email_verified_at' => 'datetime',
-            'password' => 'hashed',
-        ];
+        return 'user'; // sesuaikan dengan kolom username di DB Anda
+    }
+
+    // Jika password Anda menggunakan MD5, Laravel tidak mendukungnya secara default.
+    // Disarankan untuk migrasi ke bcrypt. Namun jika ingin tetap MD5, Anda perlu override method berikut:
+
+    public function getAuthPassword()
+    {
+        return $this->password;
+    }
+
+    // Override method untuk memeriksa password MD5 (tidak direkomendasikan untuk keamanan)
+    public function validateForPassportPasswordGrant($password)
+    {
+        return md5($password) === $this->password;
     }
 }
