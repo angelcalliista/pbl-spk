@@ -10,7 +10,8 @@ class KriteriaController extends Controller
     public function index()
     {
         $kriterias = Kriteria::all();
-        return response()->json($kriterias);
+        // return response()->json($kriterias);
+        return view('kriteria');
     }
 
     public function show($id)

@@ -1,20 +1,29 @@
 <?php
 
+use App\Http\Controllers\AlternatifController;
+use App\Http\Controllers\AspekController;
 use App\Http\Controllers\Auth\LoginController;
+use App\Http\Controllers\KriteriaController;
 use App\Http\Controllers\PerhitunganController;
+use App\Http\Controllers\ProfileController;
 use Illuminate\Support\Facades\Route;
-
-Route::get('/login', [LoginController::class, 'showLoginForm'])->name('login');
-Route::post('/login', [LoginController::class, 'login']);
-Route::post('/logout', [LoginController::class, 'logout'])->name('logout');
-
-Route::get('/profile-matching', [PerhitunganController::class, 'calculateAllProfileMatching']);
-
-// Contoh route dashboard (halaman utama setelah login)
-Route::get('/dashboard', function () {
-    return view('dashboard'); // buat view dashboard.blade.php sesuai kebutuhan
-})->middleware('auth')->name('dashboard');
 
 Route::get('/', function () {
     return view('welcome');
 });
+
+// alternatif
+Route::get('/alternatif', [AlternatifController::class, 'index']);
+
+// aspek
+Route::get('/aspek', [AspekController::class, 'index']);
+
+// kriteria
+Route::get('/kriteria', [KriteriaController::class, 'index']);
+
+// input nilai alternatif
+Route::get('/nilai-profile', [ProfileController::class, 'index']);
+
+// perhitungan
+Route::get('/perhitungan', [PerhitunganController::class, 'index']);
+// Route::get('/profile-matching', [PerhitunganController::class, 'calculateAllProfileMatching']);

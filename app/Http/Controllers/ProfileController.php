@@ -10,7 +10,8 @@ class ProfileController extends Controller
     public function index()
     {
         $profiles = Profile::all();
-        return response()->json($profiles);
+        // return response()->json($profiles);
+        return view('nilai-profile');
     }
 
     public function show($id)

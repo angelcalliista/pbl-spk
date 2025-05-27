@@ -7,12 +7,13 @@ use Illuminate\Http\Request;
 
 class AlternatifController extends Controller
 {
-        public function index()
+    public function index()
     {
         $alternatifs = Alternatif::all();
-        return response()->json($alternatifs);
+        // return response()->json($alternatifs);
+        return view('alternatif');
     }
-
+    /*
     public function show($id)
     {
         $alternatif = Alternatif::findOrFail($id);
@@ -49,4 +50,5 @@ class AlternatifController extends Controller
         $alternatif->delete();
         return response()->json(null, 204);
     }
+        */
 }

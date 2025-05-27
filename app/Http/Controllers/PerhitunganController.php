@@ -10,6 +10,10 @@ use Illuminate\Http\Request;
 
 class PerhitunganController extends Controller
 {
+    // fungsi menampilkan website
+    public function index(){
+        return view('perhitungan');
+    }
     // Fungsi untuk mendapatkan bobot berdasarkan gap
     private function getBobot($gap)
     {
@@ -128,7 +132,6 @@ class PerhitunganController extends Controller
             return $b['Score'] <=> $a['Score'];
         });
 
-        // Menambahkan rank
         foreach ($rankingData as $index => &$item) {
             $item['Rank'] = $index + 1;
         }

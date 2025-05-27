@@ -10,7 +10,8 @@ class AspekController extends Controller
     public function index()
     {
         $aspeks = Aspek::all();
-        return response()->json($aspeks);
+        // return response()->json($aspeks);
+        return view('aspek');
     }
 
     public function show($id)
