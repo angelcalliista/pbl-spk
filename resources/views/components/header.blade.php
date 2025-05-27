@@ -2,7 +2,9 @@
     {{-- Navbar--}}
     <nav class="navbar navbar-expand-lg navbar-light bg-primary mb-4">
         <div class="container-fluid">
-            <a class="navbar-brand text-white" href="{{url('/alternatif')}}">Sahabat PNJ</a>
+            <a class="navbar-brand text-white" href="{{url('/alternatif')}}">
+                <img src="{{ asset('gambar/logo.png') }}" alt="Foto Profil" style="width: 200px; height: auto;">
+            </a>
             <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavAlt" aria-controls="navbarNavAlt" aria-expanded="false" aria-label="Toggle navigation">
                 <span class="navbar-toggler-icon"></span>
             </button>

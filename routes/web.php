@@ -23,6 +23,7 @@ Route::get('/kriteria', [KriteriaController::class, 'index']);
 
 // input nilai alternatif
 Route::get('/nilai-profile', [ProfileController::class, 'index']);
+Route::post('/nilai-profile/store', [ProfileController::class, 'store'])->name('nilai_profile.save');;
 
 // perhitungan
 Route::get('/perhitungan', [PerhitunganController::class, 'index']);
