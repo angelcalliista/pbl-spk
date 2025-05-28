@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <title>Login Admin</title>
+    <title>Register Admin</title>
     <link rel="icon" type="image/x-icon" href="{{ asset('assets/ico-pnj.jpg') }}" />
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet" />
     <style>
@@ -51,7 +51,7 @@
 <div class="container d-flex justify-content-center align-items-center vh-100">
     <div class="login-box">
         <img src="{{ asset('gambar/logo.png') }}" alt="Logo" />
-        <h3 class="mb-3">Login Anggota</h3>
+        <h3 class="mb-3">Register</h3>
 
         @if ($errors->any())
             <div class="alert alert-danger">
@@ -63,10 +63,13 @@
             </div>
         @endif
 
-        <form method="POST" action="{{ url('login-proses') }}">
+        <form method="POST" action="{{ url('register') }}">
             @csrf
             <div class="mb-3">
                 <input type="text" name="username" class="form-control" placeholder="Username" required autofocus />
+            </div>
+            <div class="mb-3">
+                <input type="text" name="email" class="form-control" placeholder="Email" required autofocus />
             </div>
             <div class="mb-5 password-container">
                 <input type="password" name="password" id="password" class="form-control" placeholder="Password" required />
@@ -74,9 +77,9 @@
                     <img src="{{ asset('gambar/eye.svg') }}" id="eye-icon" alt="Show Password" />
                 </span>
             </div>
-            <button type="submit" class="btn btn-primary w-100">Login</button>
+            <button type="submit" class="btn btn-primary w-100">Register</button>
         </form>
-        <a href="{{ url('registrasi') }}">Buat Akun</a>
+        <a href="{{ url('login') }}">Sudah Login ?</a>
     </div>
 </div>
 
