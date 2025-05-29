@@ -54,4 +54,4 @@ Route::middleware('auth')->group(function () {
 
 // // perhitungan
 // Route::get('/perhitungan', [PerhitunganController::class, 'index']);
-// Route::get('/profile-matching', [PerhitunganController::class, 'calculateAllProfileMatching']);
+Route::get('/perhitungan', [PerhitunganController::class, 'calculateAllProfileMatching']);
