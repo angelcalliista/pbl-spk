@@ -8,10 +8,6 @@ use App\Http\Controllers\PerhitunganController;
 use App\Http\Controllers\ProfileController;
 use Illuminate\Support\Facades\Route;
 
-Route::get('/', function () {
-    return view('welcome');
-});
-
 // alternatif
 Route::get('/alternatif', [AlternatifController::class, 'index']);
 
@@ -27,3 +23,12 @@ Route::get('/nilai-profile', [ProfileController::class, 'index']);
 // perhitungan
 Route::get('/perhitungan', [PerhitunganController::class, 'index']);
 // Route::get('/profile-matching', [PerhitunganController::class, 'calculateAllProfileMatching']);
+
+Route::get('/', function () {
+    return redirect()->route('alternatif.index');
+});
+
+Route::resource('alternatif', AlternatifController::class);
+
+Route::get('/produk/{id}/edit', [ProdukController::class, 'edit'])->name('produk.edit');
+Route::put('/produk/{id}', [ProdukController::class, 'update'])->name('produk.update');

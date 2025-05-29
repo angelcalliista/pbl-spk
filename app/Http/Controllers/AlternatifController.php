@@ -10,45 +10,53 @@ class AlternatifController extends Controller
     public function index()
     {
         $alternatifs = Alternatif::all();
-        // return response()->json($alternatifs);
-        return view('alternatif');
+        return view('alternatif.index', compact('alternatifs'));
     }
-    /*
-    public function show($id)
+
+    public function create()
     {
-        $alternatif = Alternatif::findOrFail($id);
-        return response()->json($alternatif);
+        return view('alternatif.create');
     }
 
     public function store(Request $request)
     {
         $request->validate([
-            'kode' => 'required|string|max:255',
-            'nama_alternatif' => 'required|string|max:255',
+            'kode' => 'required|string|max:255|unique:alternatifs,kode',
+            'nama' => 'required|string|max:255',
         ]);
 
-        $alternatif = Alternatif::create($request->all());
-        return response()->json($alternatif, 201);
+        Alternatif::create([
+            'kode' => $request->kode,
+            'nama' => $request->nama,
+        ]);
+
+        return redirect()->route('alternatif.index')->with('success', 'Alternatif berhasil ditambahkan.');
     }
 
-    public function update(Request $request, $id)
+    public function edit(Alternatif $alternatif)
     {
-        $alternatif = Alternatif::findOrFail($id);
+        return view('alternatif.edit', compact('alternatif'));
+    }
 
+    public function update(Request $request, Alternatif $alternatif)
+    {
         $request->validate([
-            'kode' => 'required|string|max:255',
-            'nama_alternatif' => 'required|string|max:255',
+            'kode' => 'required|string|max:255|unique:alternatifs,kode,' . $alternatif->id,
+            'nama' => 'required|string|max:255',
         ]);
 
-        $alternatif->update($request->all());
-        return response()->json($alternatif);
+        $alternatif->update([
+            'kode' => $request->kode,
+            'nama' => $request->nama,
+        ]);
+
+        return redirect()->route('alternatif.index')->with('success', 'Alternatif berhasil diupdate.');
     }
 
-    public function destroy($id)
+    public function destroy(Alternatif $alternatif)
     {
-        $alternatif = Alternatif::findOrFail($id);
         $alternatif->delete();
-        return response()->json(null, 204);
+        return redirect()->route('alternatif.index')->with('success', 'Alternatif berhasil dihapus.');
     }
-        */
+    
 }

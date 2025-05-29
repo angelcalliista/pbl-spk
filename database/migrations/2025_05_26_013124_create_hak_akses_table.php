@@ -11,12 +11,12 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('hak_akses', function (Blueprint $table) {
-            $table->id();
-            $table->foreignId('id_user')->constrained('user');
-            $table->foreignId('id_menu')->constrained('menu');
-            $table->timestamps();
-        });
+        // Schema::create('hak_akses', function (Blueprint $table) {
+        //     $table->id();
+        //     $table->foreignId('id_user')->constrained('user');
+        //     $table->foreignId('id_menu')->constrained('menu');
+        //     $table->timestamps();
+        // });
     }
 
     /**

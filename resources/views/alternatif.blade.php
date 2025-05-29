@@ -1,106 +1,104 @@
 @extends('layouts.app')
 
 @section('content')
-  <!-- Konten halaman Alternatif di sini -->
-    {{-- Form Input --}}
-    {{-- <form action="{{ route('alternatif.store') }}" method="POST" class="mb-4">
-        @csrf
-        <div class="mb-3">
-            <label for="kode" class="form-label">Masukkan Kode Alternatif</label>
-            <input type="text" class="form-control" id="kode" name="kode" placeholder="Kode1" required>
-        </div>
-        <div class="mb-3">
-            <label for="nama" class="form-label">Masukkan Nama Alternatif</label>
-            <input type="text" class="form-control" id="nama" name="nama" placeholder="Rieqy Muwachid Erysya" required>
-        </div>
-        <button type="submit" class="btn btn-primary">Tambah</button>
-    </form> --}}
-    <form method="POST" class="mb-4">
-        @csrf
-        <div class="mb-3">
-            <label for="kode" class="form-label">Masukkan Kode Alternatif</label>
-            <input type="text" class="form-control" id="kode" name="kode" placeholder="Kode1" required>
-        </div>
-        <div class="mb-3">
-            <label for="nama" class="form-label">Masukkan Nama Alternatif</label>
-            <input type="text" class="form-control" id="nama" name="nama" placeholder="Rieqy Muwachid Erysya" required>
-        </div>
-        <button type="submit" class="btn btn-primary">Tambah</button>
-    </form>
+<div class="container">
+    <h3>Data Alternatif</h3>
 
-    {{-- Tabel Data --}}
-    <table class="table table-bordered table-striped">
+    <!-- Tombol Tambah -->
+    <button class="btn btn-primary mb-3" data-bs-toggle="modal" data-bs-target="#modalTambah">Tambah Alternatif</button>
+
+    <!-- Tabel Alternatif -->
+    <table class="table table-bordered">
         <thead>
             <tr>
-                <th style="width: 5%;">#</th>
+                <th>#</th>
                 <th>Kode</th>
-                <th>Nama Alternatif</th>
-                <th style="width: 20%;">Aksi</th>
+                <th>Nama</th>
+                <th>Aksi</th>
             </tr>
         </thead>
         <tbody>
-            <tr>
-                <td>1</td>
-                <td>Kode1</td>
-                <td>Nama1</td>
-                <td>
-                    <a href="#" class="btn btn-warning btn-sm me-1">Edit</a>
-                    <form action="#" method="POST" class="d-inline" onsubmit="return confirm('Yakin ingin menghapus data ini?');">
-                        @csrf
-                        @method('DELETE')
-                        <button type="submit" class="btn btn-danger btn-sm">Hapus</button>
-                    </form>
-                </td>
-            </tr>
-            <tr>
-                <td>1</td>
-                <td>Kode1</td>
-                <td>Nama1</td>
-                <td>
-                    <a href="#" class="btn btn-warning btn-sm me-1">Edit</a>
-                    <form action="#" method="POST" class="d-inline" onsubmit="return confirm('Yakin ingin menghapus data ini?');">
-                        @csrf
-                        @method('DELETE')
-                        <button type="submit" class="btn btn-danger btn-sm">Hapus</button>
-                    </form>
-                </td>
-            </tr>
-            <tr>
-                <td>1</td>
-                <td>Kode1</td>
-                <td>Nama1</td>
-                <td>
-                    <a href="#" class="btn btn-warning btn-sm me-1">Edit</a>
-                    <form action="#" method="POST" class="d-inline" onsubmit="return confirm('Yakin ingin menghapus data ini?');">
-                        @csrf
-                        @method('DELETE')
-                        <button type="submit" class="btn btn-danger btn-sm">Hapus</button>
-                    </form>
-                </td>
-            </tr>
-        </tbody>
-        {{-- <tbody>
-            @foreach ($alternatifs as $index => $alt)
+            @forelse ($alternatifs as $index => $alt)
             <tr>
                 <td>{{ $index + 1 }}</td>
                 <td>{{ $alt->kode }}</td>
                 <td>{{ $alt->nama }}</td>
                 <td>
-                    <a href="{{ route('alternatif.edit', $alt->id) }}" class="btn btn-warning btn-sm me-1">Edit</a>
-                    <form action="{{ route('alternatif.destroy', $alt->id) }}" method="POST" class="d-inline" onsubmit="return confirm('Yakin ingin menghapus data ini?');">
+                    <!-- Tombol Edit -->
+                    <button class="btn btn-warning btn-sm" data-bs-toggle="modal" data-bs-target="#modalEdit{{ $alt->id }}">Edit</button>
+
+                    <!-- Form Hapus -->
+                    <form action="{{ route('alternatif.destroy', $alt->id) }}" method="POST" class="d-inline" onsubmit="return confirm('Yakin ingin menghapus?')">
                         @csrf
                         @method('DELETE')
-                        <button type="submit" class="btn btn-danger btn-sm">Hapus</button>
+                        <button class="btn btn-danger btn-sm">Hapus</button>
                     </form>
                 </td>
             </tr>
-            @endforeach
-            @if($alternatifs->isEmpty())
-            <tr>
-                <td colspan="4" class="text-center">Data tidak tersedia</td>
-            </tr>
-            @endif
-        </tbody> --}}
-    </table>
-@endsection
 
+            <!-- Modal Edit -->
+            <div class="modal fade" id="modalEdit{{ $alt->id }}" tabindex="-1">
+              <div class="modal-dialog">
+                <div class="modal-content">
+                  <form action="{{ route('alternatif.update', $alt->id) }}" method="POST">
+                    @csrf
+                    @method('PUT')
+                    <div class="modal-header">
+                      <h5 class="modal-title">Edit Alternatif</h5>
+                      <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+                    </div>
+                    <div class="modal-body">
+                      <div class="mb-3">
+                        <label>Kode</label>
+                        <input type="text" name="kode" class="form-control" value="{{ $alt->kode }}" required>
+                      </div>
+                      <div class="mb-3">
+                        <label>Nama</label>
+                        <input type="text" name="nama" class="form-control" value="{{ $alt->nama }}" required>
+                      </div>
+                    </div>
+                    <div class="modal-footer">
+                      <button class="btn btn-primary" type="submit">Simpan Perubahan</button>
+                      <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Batal</button>
+                    </div>
+                  </form>
+                </div>
+              </div>
+            </div>
+
+            @empty
+            <tr><td colspan="4" class="text-center">Data tidak tersedia.</td></tr>
+            @endforelse
+        </tbody>
+    </table>
+</div>
+
+<!-- Modal Tambah -->
+<div class="modal fade" id="modalTambah" tabindex="-1">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <form action="{{ route('alternatif.store') }}" method="POST">
+        @csrf
+        <div class="modal-header">
+          <h5 class="modal-title">Tambah Alternatif</h5>
+          <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+        </div>
+        <div class="modal-body">
+          <div class="mb-3">
+            <label>Kode</label>
+            <input type="text" name="kode" class="form-control" required>
+          </div>
+          <div class="mb-3">
+            <label>Nama</label>
+            <input type="text" name="nama" class="form-control" required>
+          </div>
+        </div>
+        <div class="modal-footer">
+          <button class="btn btn-primary" type="submit">Simpan</button>
+          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Batal</button>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>
+@endsection
