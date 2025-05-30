@@ -58,5 +58,5 @@ class AlternatifController extends Controller
         $alternatif->delete();
         return redirect()->route('alternatif.index')->with('success', 'Alternatif berhasil dihapus.');
     }
-    
+
 }
