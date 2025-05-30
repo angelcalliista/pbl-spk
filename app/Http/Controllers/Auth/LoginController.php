@@ -3,19 +3,41 @@
 namespace App\Http\Controllers\Auth;
 
 use App\Http\Controllers\Controller;
+use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Hash;
 
 class LoginController extends Controller
 {
     // Tampilkan form login
     public function showLoginForm()
     {
-        // Jika sudah login, redirect ke dashboard
-        if (Auth::check()) {
-            return redirect()->route('dashboard');
-        }
         return view('auth.login');
+    }
+
+    // tampilkan halaman registrasi
+    public function showRegisterForm()
+    {
+        return view('auth.register');
+    }
+
+    // Proses register
+    public function register(Request $request)
+    {
+        $request->validate([
+            'username' => 'required|string',
+            'email' => 'required|email',
+            'password' => 'required|string|min:6',
+        ]);
+
+        User::create([
+            'username' => $request->username,
+            'email' => $request->email,
+            'password' => Hash::make($request->password),
+        ]);
+
+        return redirect()->route('auth.login')->with('success', 'Registrasi berhasil! Silakan login.');
     }
 
     // Proses login
@@ -27,7 +49,7 @@ class LoginController extends Controller
         ]);
 
         $credentials = [
-            'user' => $request->username, // sesuaikan dengan kolom username di DB Anda
+            'username' => $request->username, 
             'password' => $request->password,
         ];
 
@@ -36,7 +58,7 @@ class LoginController extends Controller
             $request->session()->regenerate();
 
             // Redirect ke halaman dashboard atau index
-            return redirect()->intended(route('dashboard'));
+            return redirect()->intended('/alternatif');
         }
 
         return back()->withErrors([
@@ -52,6 +74,6 @@ class LoginController extends Controller
         $request->session()->invalidate();
         $request->session()->regenerateToken();
 
-        return redirect()->route('login');
+        return redirect()->route('auth.login');
     }
 }

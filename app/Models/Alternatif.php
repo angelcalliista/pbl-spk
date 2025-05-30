@@ -6,7 +6,13 @@ use Illuminate\Database\Eloquent\Model;
 
 class Alternatif extends Model
 {
-    protected $fillable = ['kode', 'nama'];
+    protected $table = 'tbl_alternatif';
+    public $timestamps = false;
+
+    protected $fillable = [
+        'kode',
+        'nama_alternatif',
+    ];
 
     public function profiles()
     {
