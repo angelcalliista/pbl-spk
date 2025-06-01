@@ -25,31 +25,36 @@ class LoginController extends Controller
     // Proses register
     public function register(Request $request)
     {
+        // Validasi form
         $request->validate([
-            'username' => 'required|string',
-            'email' => 'required|email',
-            'password' => 'required|string|min:6',
+            'name' => 'required|string|max:255',
+            'email' => 'required|email|unique:users,email',
+            'password' => 'required|min:6|confirmed',
+            'id_role' => 'required|integer|exists:role,id',
         ]);
 
+        // Simpan user ke database
         User::create([
-            'username' => $request->username,
+            'name' => $request->name,
             'email' => $request->email,
+            'id_role' => $request->id_role,
             'password' => Hash::make($request->password),
         ]);
 
-        return redirect()->route('auth.login')->with('success', 'Registrasi berhasil! Silakan login.');
+        // Redirect setelah register berhasil (misalnya ke halaman login)
+        return redirect()->route('login')->with('success', 'Registrasi berhasil. Silakan login.');
     }
 
     // Proses login
     public function login(Request $request)
     {
         $request->validate([
-            'username' => 'required|string',
+            'email' => 'required|email',
             'password' => 'required|string',
         ]);
 
         $credentials = [
-            'username' => $request->username, 
+            'email' => $request->email,
             'password' => $request->password,
         ];
 
@@ -58,12 +63,12 @@ class LoginController extends Controller
             $request->session()->regenerate();
 
             // Redirect ke halaman dashboard atau index
-            return redirect()->intended('/alternatif');
+            return redirect()->intended('/');
         }
 
         return back()->withErrors([
-            'username' => 'Username atau password salah.',
-        ])->withInput($request->only('username'));
+            'email' => 'Email atau password salah.',
+        ])->withInput($request->only('email'));
     }
 
     // Logout
@@ -74,6 +79,6 @@ class LoginController extends Controller
         $request->session()->invalidate();
         $request->session()->regenerateToken();
 
-        return redirect()->route('auth.login');
+        return redirect()->route('login');
     }
 }

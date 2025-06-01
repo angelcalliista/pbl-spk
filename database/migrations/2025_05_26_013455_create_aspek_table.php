@@ -11,11 +11,11 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('tbl_profile', function (Blueprint $table) {
+        Schema::create('aspek', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('id_alternatif')->constrained('tbl_alternatif');
-            $table->foreignId('id_kriteria')->constrained('tbl_kriteria');
-            $table->integer('nilai_profile');
+            $table->string('kode', 10)->nullable();
+            $table->string('nama', 30)->nullable();
+            $table->double('persentase');
             $table->timestamps();
         });
     }
@@ -25,6 +25,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('tbl_profile');
+        Schema::dropIfExists('aspek');
     }
 };

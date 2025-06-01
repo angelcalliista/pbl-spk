@@ -6,12 +6,12 @@ use Illuminate\Database\Eloquent\Model;
 
 class Aspek extends Model
 {
-    protected $table = 'tbl_aspek';
+    protected $table = 'aspek';
     public $timestamps = false;
 
     protected $fillable = [
         'kode',
-        'nama_aspek',
+        'nama',
         'persentase',
     ];
 

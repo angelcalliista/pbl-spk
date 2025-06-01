@@ -9,9 +9,8 @@ class AspekController extends Controller
 {
     public function index()
     {
-        $aspeks = Aspek::all();
-        // return response()->json($aspeks);
-        return view('aspek');
+        $aspek = Aspek::all();
+        return view('aspek.index', compact('aspek'));
     }
 
     public function show($id)
@@ -20,36 +19,54 @@ class AspekController extends Controller
         return response()->json($aspek);
     }
 
+    //tambah aspek
+    public function create()
+    {
+        return view('aspek.create');
+    }
     public function store(Request $request)
     {
         $request->validate([
             'kode' => 'required|string|max:255',
-            'nama_aspek' => 'required|string|max:255',
+            'nama' => 'required|string|max:255',
             'persentase' => 'required|numeric',
         ]);
 
-        $aspek = Aspek::create($request->all());
-        return response()->json($aspek, 201);
+        Aspek::create([
+            'kode' => $request->kode,
+            'nama' => $request->nama,
+            'persentase' => $request->persentase,
+        ]);
+
+        return redirect()->route('admin.aspek.index')->with('success', 'Aspek berhasil ditambahkan.');
+
     }
 
-    public function update(Request $request, $id)
+    public function edit(Aspek $aspek)
     {
-        $aspek = Aspek::findOrFail($id);
+        return view('aspek.edit', compact('aspek'));
+    }
 
+    public function update(Request $request, Aspek $aspek)
+    {
         $request->validate([
-            'kode' => 'required|string|max:255',
-            'nama_aspek' => 'required|string|max:255',
+            'kode' => 'required|string|max:255|unique:alternatifs,kode,' . $aspek->id,
+            'nama' => 'required|string|max:255',
             'persentase' => 'required|numeric',
         ]);
 
-        $aspek->update($request->all());
-        return response()->json($aspek);
+        $aspek->update([
+            'kode' => $request->kode,
+            'nama' => $request->nama,
+            'persentase' => $request->persentase,
+        ]);
+
+        return redirect()->route('admin.aspek.index')->with('success', 'Alternatif berhasil diupdate.');
     }
 
-    public function destroy($id)
+    public function destroy(Aspek $aspek)
     {
-        $aspek = Aspek::findOrFail($id);
         $aspek->delete();
-        return response()->json(null, 204);
+        return redirect()->route('admin.aspek.index')->with('success', 'Alternatif berhasil dihapus.');
     }
 }

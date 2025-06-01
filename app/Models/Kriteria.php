@@ -6,13 +6,13 @@ use Illuminate\Database\Eloquent\Model;
 
 class Kriteria extends Model
 {
-    protected $table = 'tbl_kriteria';
+    protected $table = 'kriteria';
     public $timestamps = false;
 
     protected $fillable = [
         'id_aspek',
         'kode',
-        'nama_kriteria',
+        'nama',
         'nilai',
         'factor',
     ];

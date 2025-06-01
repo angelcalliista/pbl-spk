@@ -11,9 +11,14 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('menu', function (Blueprint $table) {
+
+        Schema::create('kriteria', function (Blueprint $table) {
             $table->id();
-            $table->string('nama_menu', 100);
+            $table->foreignId('id_aspek')->constrained('aspek');
+            $table->string('kode', 30);
+            $table->string('nama', 30);
+            $table->integer('nilai');
+            $table->enum('factor', ['1', '2']);
             $table->timestamps();
         });
     }
@@ -23,6 +28,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('menu');
+        Schema::dropIfExists('kriteria');
     }
 };

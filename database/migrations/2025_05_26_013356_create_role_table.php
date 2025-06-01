@@ -11,14 +11,9 @@ return new class extends Migration
      */
     public function up(): void
     {
-
-        Schema::create('tbl_kriteria', function (Blueprint $table) {
+        Schema::create('role', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('id_aspek')->constrained('tbl_aspek');
-            $table->string('kode', 30);
-            $table->string('nama_kriteria', 30);
-            $table->integer('nilai');
-            $table->enum('factor', ['1', '2']);
+            $table->string('name');
             $table->timestamps();
         });
     }
@@ -28,6 +23,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('tbl_kriteria');
+        Schema::dropIfExists('role');
     }
 };

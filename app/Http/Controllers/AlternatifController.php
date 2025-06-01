@@ -30,7 +30,7 @@ class AlternatifController extends Controller
             'nama' => $request->nama,
         ]);
 
-        return redirect()->route('alternatif.index')->with('success', 'Alternatif berhasil ditambahkan.');
+        return redirect()->route('admin.alternatif.index')->with('success', 'Alternatif berhasil ditambahkan.');
     }
 
     public function edit(Alternatif $alternatif)
@@ -50,13 +50,13 @@ class AlternatifController extends Controller
             'nama' => $request->nama,
         ]);
 
-        return redirect()->route('alternatif.index')->with('success', 'Alternatif berhasil diupdate.');
+        return redirect()->route('admin.alternatif.index')->with('success', 'Alternatif berhasil diupdate.');
     }
 
     public function destroy(Alternatif $alternatif)
     {
         $alternatif->delete();
-        return redirect()->route('alternatif.index')->with('success', 'Alternatif berhasil dihapus.');
+        return redirect()->route('admin.alternatif.index')->with('success', 'Alternatif berhasil dihapus.');
     }
 
 }

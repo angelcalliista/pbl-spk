@@ -3,15 +3,20 @@
 namespace App\Http\Controllers;
 
 use App\Models\Kriteria;
+use App\Models\Aspek;
+use Illuminate\Validation\Rule;
 use Illuminate\Http\Request;
 
 class KriteriaController extends Controller
 {
     public function index()
     {
-        $kriterias = Kriteria::all();
+        // $kriterias = Kriteria::all();
         // return response()->json($kriterias);
-        return view('kriteria');
+        // return view('kriteria');
+        $kriterias = Kriteria::with('aspek')->get();
+        return view('kriteria.index', compact('kriterias')); // Sesuaikan path view
+
     }
 
     public function show($id)
@@ -20,40 +25,69 @@ class KriteriaController extends Controller
         return response()->json($kriteria);
     }
 
+     public function create()
+    {
+        $aspeks = Aspek::all();
+        return view('kriteria.create', compact('aspeks'));
+    }
     public function store(Request $request)
     {
         $request->validate([
             'id_aspek' => 'required|integer',
             'kode' => 'required|string|max:255',
-            'nama_kriteria' => 'required|string|max:255',
+            'nama' => 'required|string|max:255',
             'nilai' => 'required|numeric',
             'factor' => 'required|integer',
         ]);
+        Kriteria::create([
+            'id_aspek' => $request->id_aspek,
+            'kode' => $request->kode,
+            'nama' => $request->nama,
+            'nilai' => $request->nilai,
+            'factor' => $request->factor,
+        ]);
 
-        $kriteria = Kriteria::create($request->all());
-        return response()->json($kriteria, 201);
+        return redirect()->route('admin.kriteria.index')->with('success', 'Kriteria berhasil ditambahkan.');
     }
 
-    public function update(Request $request, $id)
+    public function edit(Kriteria $kriterium)
     {
-        $kriteria = Kriteria::findOrFail($id);
+        $aspeks = Aspek::orderBy('kode')->get();
+        return view('kriteria.edit', compact('kriterium', 'aspeks'));
+    }
+    public function update(Request $request, Kriteria $kriterium) // Route Model Binding
+    {
+        // $request->validate([
+        //     'id_aspek' => 'required|integer',
+        //     'kode' => 'required|string|max:255',
+        //     'nama' => 'required|string|max:255',
+        //     'nilai' => 'required|numeric|min:1|max:5',
+        //     'factor' => 'required|integer',
+        // ]);
 
-        $request->validate([
+        // $kriteria->update([
+        //     'id_aspek' => $request->id_aspek,
+        //     'kode' => $request->kode,
+        //     'nama' => $request->nama,
+        //     'nilai' => $request->nilai,
+        //     'factor' => $request->factor,
+        // ]);
+        $validatedData = $request->validate([
             'id_aspek' => 'required|integer',
             'kode' => 'required|string|max:255',
-            'nama_kriteria' => 'required|string|max:255',
-            'nilai' => 'required|numeric',
+            'nama' => 'required|string|max:255',
+            'nilai' => 'required|numeric|min:1|max:5',
             'factor' => 'required|integer',
         ]);
+         $kriterium->update($validatedData); // Menggunakan $validatedData lebih aman
 
-        $kriteria->update($request->all());
-        return response()->json($kriteria);
+        return redirect()->route('admin.kriteria.index')->with('success', 'Kriteria berhasil diperbarui.');
+
     }
 
-    public function destroy($id)
+    public function destroy(Kriteria $kriterium)
     {
-        $kriteria = Kriteria::findOrFail($id);
-        $kriteria->delete();
-        return response()->json(null, 204);
+        $kriterium->delete();
+        return redirect()->route('admin.kriteria.index')->with('success', 'Alternatif berhasil dihapus.');
     }
 }

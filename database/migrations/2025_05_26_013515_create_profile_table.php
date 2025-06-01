@@ -11,10 +11,11 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('tbl_alternatif', function (Blueprint $table) {
+        Schema::create('profile', function (Blueprint $table) {
             $table->id();
-            $table->string('kode', 10)->nullable();
-            $table->string('nama_alternatif', 30)->nullable();
+            $table->foreignId('id_alternatif')->constrained('alternatifs');
+            $table->foreignId('id_kriteria')->constrained('kriteria');
+            $table->integer('nilai_profile');
             $table->timestamps();
         });
     }
@@ -24,6 +25,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('tbl_alternatif');
+        Schema::dropIfExists('profile');
     }
 };
