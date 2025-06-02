@@ -7,7 +7,7 @@ use Illuminate\Database\Eloquent\Model;
 class Alternatif extends Model
 {
     protected $table = 'alternatifs';
-    public $timestamps = false;
+    // public $timestamps = false;
 
     protected $fillable = [
         'kode',

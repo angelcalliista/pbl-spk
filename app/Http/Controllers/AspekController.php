@@ -32,6 +32,19 @@ class AspekController extends Controller
             'persentase' => 'required|numeric',
         ]);
 
+        // hitung total presentase yang sudah ada
+        $totalPresentase = Aspek::sum('persentase');
+
+        // cek jika total presentase sudah mencapai 100
+        if ($totalPresentase + $request->persentase > 100) {
+            return redirect()->back()->with('error', 'Total presentase tidak boleh melebihi 100.');
+        }
+
+        // cek apakah penambahan presentase baru melebihi 100%
+        if($request->persentase + $totalPresentase > 100) {
+            return redirect()->back()->with('error', 'Total presentase tidak boleh melebihi 100.');
+        }
+
         Aspek::create([
             'kode' => $request->kode,
             'nama' => $request->nama,

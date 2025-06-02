@@ -7,7 +7,7 @@ use Illuminate\Database\Eloquent\Model;
 class Kriteria extends Model
 {
     protected $table = 'kriteria';
-    public $timestamps = false;
+    // public $timestamps = false;
 
     protected $fillable = [
         'id_aspek',
