@@ -173,8 +173,8 @@
                 display: none;
             }
             .form-column {
-                 background-color: #f0f4f8;
-                 padding: 1rem;
+                background-color: #f0f4f8;
+                padding: 1rem;
             }
             .register-form-container {
                 padding: 1.5rem;
@@ -221,7 +221,7 @@
                 <form method="POST" action="{{ url('register') }}">
                     @csrf
                     <div class="mb-3">
-                        <input type="hidden" name="id_role" value="2" required autofocus />
+                        <input type="hidden" name="id_role" value="1" required autofocus />
                     </div>
                     <div class="mb-3">
                         <input type="text" name="name" class="form-control" placeholder="Nama Lengkap" required autofocus />
