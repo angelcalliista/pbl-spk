@@ -37,13 +37,8 @@ return new class extends Migration
     public function down(): void
     {
         Schema::table('profile', function (Blueprint $table) {
-            // Kembalikan ke state semula (tanpa cascade)
-            $table->dropForeign(['id_kriteria']); // Drop FK yang baru (Laravel akan menebak namanya)
-            // atau $table->dropForeign('profile_id_kriteria_foreign'); (Jika nama constraint sama setelah di-recreate tanpa cascade)
-
-            // Tambahkan kembali foreign key tanpa onDelete('cascade')
-            // Defaultnya adalah RESTRICT atau NO ACTION
-            $table->foreign('id_kriteria', 'profile_id_kriteria_foreign') // Berikan nama constraint yang sama seperti awal
+            $table->dropForeign(['id_kriteria']);
+            $table->foreign('id_kriteria', 'profile_id_kriteria_foreign')
                   ->references('id')
                   ->on('kriteria');
         });

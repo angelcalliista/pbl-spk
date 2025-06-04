@@ -49,14 +49,14 @@
                         @enderror
                     </div>
 
-                    <div class="col-md-3 mb-3"> {{-- Disesuaikan agar layout lebih seimbang --}}
+                    <div class="col-md-3 mb-3">
                         <label for="nilai" class="form-label">Nilai Target (1-5) <span class="text-danger">*</span></label>
                         <input type="number" id="nilai" name="nilai" value="{{ old('nilai', $kriterium->nilai) }}" class="form-control @error('nilai') is-invalid @enderror" min="1" max="5" placeholder="Contoh: 4" required>
                         @error('nilai')
                             <div class="invalid-feedback">{{ $message }}</div>
                         @enderror
                     </div>
-                </div> {{-- End first row for inputs --}}
+                </div>
 
                 <div class="row">
                     <div class="col-md-4 mb-3">
@@ -70,11 +70,10 @@
                             <label class="form-check-label" for="factor_secondary">Secondary Factor</label>
                         </div>
                         @error('factor')
-                            <div class="invalid-feedback d-block">{{ $message }}</div> {{-- d-block agar tampil di bawah radio --}}
+                            <div class="invalid-feedback d-block">{{ $message }}</div>
                         @enderror
                     </div>
-                </div> {{-- End second row for inputs (if needed) --}}
-
+                </div>
                 <div class="mt-4">
                     <button type="submit" class="btn btn-success me-2">
                         <i class="fas fa-sync-alt me-1"></i> Update Perubahan

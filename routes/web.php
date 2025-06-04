@@ -26,17 +26,10 @@ Route::middleware('auth')->group(function () {
     Route::post('/logout', [LoginController::class, 'logout'])->name('logout');
 
     Route::middleware('role:admin')->prefix('admin')->name('admin.')->group(function () {
-        // alternatif
         Route::resource('alternatif', AlternatifController::class);
-        // aspek
         Route::resource('aspek', AspekController::class);
-
-        // kriteria
         Route::resource('kriteria', KriteriaController::class);
-
-        // input nilai alternatif
         Route::resource('profile', ProfileController::class);
-        // perhitungan
         Route::resource('perhitungan', PerhitunganController::class,);
     });
 });

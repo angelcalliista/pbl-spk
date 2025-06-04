@@ -7,7 +7,6 @@ use Illuminate\Database\Eloquent\Model;
 class Aspek extends Model
 {
     protected $table = 'aspek';
-    // public $timestamps = false;
 
     protected $fillable = [
         'kode',

@@ -57,21 +57,6 @@ class KriteriaController extends Controller
     }
     public function update(Request $request, Kriteria $kriterium) // Route Model Binding
     {
-        // $request->validate([
-        //     'id_aspek' => 'required|integer',
-        //     'kode' => 'required|string|max:255',
-        //     'nama' => 'required|string|max:255',
-        //     'nilai' => 'required|numeric|min:1|max:5',
-        //     'factor' => 'required|integer',
-        // ]);
-
-        // $kriteria->update([
-        //     'id_aspek' => $request->id_aspek,
-        //     'kode' => $request->kode,
-        //     'nama' => $request->nama,
-        //     'nilai' => $request->nilai,
-        //     'factor' => $request->factor,
-        // ]);
         $validatedData = $request->validate([
             'id_aspek' => 'required|integer',
             'kode' => 'required|string|max:255',
@@ -79,7 +64,7 @@ class KriteriaController extends Controller
             'nilai' => 'required|numeric|min:1|max:5',
             'factor' => 'required|integer',
         ]);
-         $kriterium->update($validatedData); // Menggunakan $validatedData lebih aman
+         $kriterium->update($validatedData);
 
         return redirect()->route('admin.kriteria.index')->with('success', 'Kriteria berhasil diperbarui.');
 

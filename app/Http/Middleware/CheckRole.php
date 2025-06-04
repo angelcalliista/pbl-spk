@@ -21,17 +21,12 @@ class CheckRole
     public function handle(Request $request, Closure $next, ...$allowedRoles): Response
     {
         if (!Auth::check()) {
-            // Jika belum login, tetap ke halaman login
             return redirect()->route('login');
         }
 
         $user = Auth::user();
-
-        // Cek apakah user punya relasi 'role' dan role tersebut punya 'name'
-        if (!$user->role || !$user->role->name) { // Perbaikan: Cek juga $user->role->name
+        if (!$user->role || !$user->role->name) {
             Log::warning("User ID {$user->id} ({$user->email}) tidak memiliki role yang valid, relasi 'role' bermasalah, atau nama role kosong.");
-
-            // Alihkan ke halaman welcome dengan pesan error
             return redirect()->route('welcome')->with('error', 'Akses ditolak: Role Anda tidak terdefinisi atau tidak valid.');
         }
 
@@ -39,11 +34,9 @@ class CheckRole
 
         foreach ($allowedRoles as $allowedRole) {
             if ($currentUserRoleName === strtolower($allowedRole)) {
-                return $next($request); // Izinkan akses
+                return $next($request);
             }
         }
-
-        // Jika tidak ada role yang cocok, alihkan ke halaman welcome dengan pesan error
         return redirect()->route('welcome')->with('error', 'Akses ditolak. Anda tidak memiliki izin yang cukup.');
     }
 }

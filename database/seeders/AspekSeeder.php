@@ -13,10 +13,6 @@ class AspekSeeder extends Seeder
      */
     public function run(): void
     {
-        // Hapus data lama agar tidak duplikat
-        // DB::table('aspek')->truncate();
-
-        // Data yang akan diinsert
         $data = [
             [
                 'id' => 1,
@@ -35,8 +31,6 @@ class AspekSeeder extends Seeder
                 'updated_at' => '2025-06-02 04:51:55',
             ],
         ];
-
-        // Insert data ke tabel aspek
         DB::table('aspek')->insert($data);
     }
 }

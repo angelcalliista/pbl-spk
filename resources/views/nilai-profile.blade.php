@@ -20,7 +20,7 @@
             <h6 class="m-0 font-weight-bold text-primary">Filter Berdasarkan Aspek</h6>
         </div>
         <div class="card-body">
-            <form method="GET" action="{{ route('admin.profile.index') }}" class="mb-3"> {{-- Menggunakan route name untuk index --}}
+            <form method="GET" action="{{ route('admin.profile.index') }}" class="mb-3"> {
                 <div class="row">
                     <div class="col-md-6">
                         <label for="aspek_id" class="form-label">Pilih Aspek Penilaian</label>
@@ -28,7 +28,7 @@
                             <option value="">-- Semua Aspek / Pilih Aspek --</option>
                             @foreach($aspekList as $aspek)
                                 <option value="{{ $aspek->id }}" {{ (string)$selectedAspekId === (string)$aspek->id ? 'selected' : '' }}>
-                                    {{ $aspek->kode }} - {{ $aspek->nama_aspek ?? $aspek->nama }} {{-- Sesuaikan dengan nama kolom/properti Anda --}}
+                                    {{ $aspek->kode }} - {{ $aspek->nama_aspek ?? $aspek->nama }}
                                 </option>
                             @endforeach
                         </select>
@@ -47,7 +47,7 @@
                 </h6>
             </div>
             <div class="card-body">
-                <form method="POST" action="{{ route('admin.profile.store') }}"> {{-- PERUBAHAN RUTE --}}
+                <form method="POST" action="{{ route('admin.profile.store') }}">
                     @csrf
                     <div class="table-responsive">
                         <table class="table table-bordered table-striped table-hover" width="100%" cellspacing="0">
@@ -55,17 +55,16 @@
                                 <tr class="text-center">
                                     <th style="width: 20%;">Alternatif / Kriteria</th>
                                     @foreach($kriteriaList as $kriteria)
-                                        <th>{{ $kriteria->nama_kriteria ?? $kriteria->nama }} <small>({{ $kriteria->kode }})</small></th> {{-- Sesuaikan --}}
+                                        <th>{{ $kriteria->nama_kriteria ?? $kriteria->nama }} <small>({{ $kriteria->kode }})</small></th>
                                     @endforeach
                                 </tr>
                             </thead>
                             <tbody>
                                 @forelse($alternatifList as $alternatif)
                                     <tr>
-                                        <td>{{ $alternatif->nama_alternatif ?? $alternatif->nama }} <small>({{ $alternatif->kode }})</small></td> {{-- Sesuaikan --}}
+                                        <td>{{ $alternatif->nama_alternatif ?? $alternatif->nama }} <small>({{ $alternatif->kode }})</small></td>
                                         @foreach($kriteriaList as $kriteria)
                                             @php
-                                                // Akses nilai profile dengan aman menggunakan optional helper
                                                 $existingProfile = $nilaiProfiles[$alternatif->id][$kriteria->id] ?? null;
                                                 $nilai = old('nilai.' . $alternatif->id . '.' . $kriteria->id, optional($existingProfile)->nilai_profile);
                                             @endphp
@@ -73,7 +72,7 @@
                                                 <input type="number"
                                                     name="nilai[{{ $alternatif->id }}][{{ $kriteria->id }}]"
                                                     value="{{ $nilai }}"
-                                                    min="1" max="5" {{-- Sesuaikan max value jika perlu --}}
+                                                    min="1" max="5"
                                                     class="form-control form-control-sm @error('nilai.' . $alternatif->id . '.' . $kriteria->id) is-invalid @enderror"
                                                     required
                                                     style="min-width: 70px; text-align: center;"
@@ -116,7 +115,6 @@
 @endsection
 
 @push('styles')
-{{-- Jika ada CSS khusus untuk halaman ini --}}
 <style>
     .table th, .table td {
         vertical-align: middle;

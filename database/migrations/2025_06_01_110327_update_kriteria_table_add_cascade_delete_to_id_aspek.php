@@ -35,14 +35,12 @@ return new class extends Migration
     public function down(): void
     {
         Schema::table('kriteria', function (Blueprint $table) {
-            // Kembalikan ke state semula (tanpa cascade)
             $table->dropForeign(['id_aspek']);
-            // $table->dropForeign('kriteria_id_aspek_foreign'); // jika pakai nama constraint
 
             $table->foreign('id_aspek')
                   ->references('id')
                   ->on('aspek');
-            // Defaultnya adalah RESTRICT atau NO ACTION, yang akan menyebabkan error jika ada child
+
         });
     }
 };

@@ -39,12 +39,12 @@
                         </tr>
                     </thead>
                     <tbody>
-                        @forelse($kriterias as $index => $kriteria) {{-- Mengganti $alt menjadi $kriteria dan menambahkan $index --}}
+                        @forelse($kriterias as $index => $kriteria)
                             <tr>
                                 <td>{{ $index + 1 }}</td>
                                 <td>{{ $kriteria->kode }}</td>
                                 <td>
-                                    @if ($kriteria->aspek) {{-- Cek apakah relasi aspek ada --}}
+                                    @if ($kriteria->aspek)
                                         {{ $kriteria->aspek->kode }} - {{ $kriteria->aspek->nama }}
                                     @else
                                         <span class="text-muted">N/A</span>
@@ -117,7 +117,7 @@
                 }
             },
             "columnDefs": [
-                { "orderable": false, "targets": 6 } // Kolom 'Aksi' adalah target ke-6 (indeks dari 0)
+                { "orderable": false, "targets": 6 }
             ]
         });
     });

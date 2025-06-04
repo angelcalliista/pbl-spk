@@ -47,17 +47,17 @@
                         @enderror
                     </div>
 
-                    <div class="col-md-3 mb-3"> {{-- Disesuaikan agar layout lebih seimbang --}}
+                    <div class="col-md-3 mb-3">
                         <label for="nilai" class="form-label">Nilai Target (1-5) <span class="text-danger">*</span></label>
                         <input type="number" id="nilai" name="nilai" class="form-control @error('nilai') is-invalid @enderror" value="{{ old('nilai') }}" min="1" max="5" placeholder="Contoh: 4" required>
                         @error('nilai')
                             <div class="invalid-feedback">{{ $message }}</div>
                         @enderror
                     </div>
-                </div> {{-- End first row for inputs --}}
+                </div>
 
                 <div class="row">
-                    <div class="col-md-4 mb-3"> {{-- Factor diletakkan di baris baru atau kolom yang lebih pas --}}
+                    <div class="col-md-4 mb-3">
                         <label class="form-label d-block">Jenis Faktor <span class="text-danger">*</span></label>
                         <div class="form-check">
                             <input class="form-check-input @error('factor') is-invalid @enderror" type="radio" name="factor" id="factor_core" value="1" {{ old('factor') == '1' ? 'checked' : '' }} required>
@@ -68,10 +68,10 @@
                             <label class="form-check-label" for="factor_secondary">Secondary Factor</label>
                         </div>
                         @error('factor')
-                            <div class="invalid-feedback d-block">{{ $message }}</div> {{-- d-block agar tampil di bawah radio --}}
+                            <div class="invalid-feedback d-block">{{ $message }}</div>
                         @enderror
                     </div>
-                </div> {{-- End second row for inputs (if needed) --}}
+                </div>
 
 
                 <div class="mt-4">

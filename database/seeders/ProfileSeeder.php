@@ -13,10 +13,6 @@ class ProfileSeeder extends Seeder
      */
     public function run(): void
     {
-        // Hapus data lama agar tidak duplikat
-        // DB::table('profile')->truncate();
-
-        // Data yang akan diinsert
         $data = [
             ['id' => 1, 'id_alternatif' => 5, 'id_kriteria' => 1, 'nilai_profile' => 4, 'created_at' => '2025-06-02 05:22:28', 'updated_at' => '2025-06-02 05:22:28'],
             ['id' => 2, 'id_alternatif' => 5, 'id_kriteria' => 2, 'nilai_profile' => 4, 'created_at' => '2025-06-02 05:22:28', 'updated_at' => '2025-06-02 05:22:28'],
@@ -110,8 +106,6 @@ class ProfileSeeder extends Seeder
             ['id' => 90, 'id_alternatif' => 2, 'id_kriteria' => 12, 'nilai_profile' => 4, 'created_at' => '2025-06-02 05:28:10', 'updated_at' => '2025-06-02 05:28:10'],
             ['id' => 91, 'id_alternatif' => 2, 'id_kriteria' => 13, 'nilai_profile' => 4, 'created_at' => '2025-06-02 05:28:10', 'updated_at' => '2025-06-02 05:28:10']
         ];
-
-        // Insert data ke tabel
         DB::table('profile')->insert($data);
     }
 }

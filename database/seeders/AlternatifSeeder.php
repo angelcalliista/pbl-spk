@@ -13,10 +13,6 @@ class AlternatifSeeder extends Seeder
      */
     public function run(): void
     {
-        // Hapus data lama agar tidak duplikat -- SUDAH DITANGANI DI DATABASESEEDER
-        // DB::table('alternatifs')->truncate(); // <-- HAPUS ATAU KOMENTARI BARIS INI
-
-        // Data yang akan diinsert
         $data = [
              [
                 'id' => 1,
@@ -68,8 +64,6 @@ class AlternatifSeeder extends Seeder
                 'updated_at' => '2025-06-02 04:38:53',
             ],
         ];
-
-        // Insert data ke tabel alternatifs
         DB::table('alternatifs')->insert($data);
     }
 }

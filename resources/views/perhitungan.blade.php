@@ -1,31 +1,3 @@
-{{-- @extends('layouts.app')
-
-@section('content')
-    <div class="container">
-        <h3>Hasil Perangkingan</h3>
-        <table class="table table-bordered table-striped">
-            <thead>
-                <tr>
-                    <th>Kode</th>
-                    <th>Alternatif</th>
-                    <th>Total</th>
-                    <th>Rank</th>
-                </tr>
-            </thead>
-            <tbody>
-                @foreach($rankingData as $item)
-                <tr>
-                    <td>{{ $item['Alternatif']->kode }}</td>
-                    <td>{{ $item['Alternatif']->nama_alternatif }}</td>
-                    <td>{{ number_format($item['Score'], 4) }}</td>
-                    <td>{{ $item['Rank'], }}</td>
-                </tr>
-                @endforeach
-            </tbody>
-        </table>
-    </div>
-@endsection --}}
-
 @extends('layouts.app')
 
 @section('content')
@@ -74,8 +46,6 @@
                 </div>
             </div>
         </div>
-
-        {{-- Opsional: Menampilkan Detail Perhitungan Per Aspek --}}
         @if(!empty($arrayHitung))
             <div class="mt-5">
                 <h2 class="h4 mb-3">Detail Perhitungan Profile Matching</h2>
@@ -120,7 +90,6 @@
                                                     </td>
                                                     @endforeach
                                                 @else
-                                                    {{-- Jika tidak ada profile detail (misal tidak ada kriteria untuk aspek ini) --}}
                                                     <td colspan="{{ count($kriteriaForThisAspek ?? []) }}" class="text-center text-muted">-</td>
                                                 @endif
                                                 <td class="text-center">{{ number_format($dataAlternatif['NCF'], 2) }}</td>
