@@ -13,6 +13,11 @@
             <h6 class="m-0 font-weight-bold text-primary">Formulir Data Aspek</h6>
         </div>
         <div class="card-body">
+            @if(session('error'))
+                <div class="alert alert-danger">
+                    {{ session('error') }}
+                </div>
+            @endif
             <form action="{{ route('admin.aspek.store') }}" method="POST">
                 @csrf
                 <div class="row">
