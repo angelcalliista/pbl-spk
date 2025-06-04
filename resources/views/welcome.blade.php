@@ -336,16 +336,12 @@
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
     <script>
-        // SCRIPT ANDA YANG SUDAH ADA DIMULAI DARI SINI
         $(document).ready(function() {
             var fiturModalEl = document.getElementById('fiturModal');
-            // Pastikan fiturModalEl tidak null sebelum membuat instance Modal
             if (fiturModalEl) {
                 var fiturModal = new bootstrap.Modal(fiturModalEl);
                 var modalTitle = $('#fiturModalLabel');
                 var modalBody = $('#fiturModalBody');
-
-                // Default loading spinner
                 const loadingSpinner = `
                     <div class="text-center py-5">
                         <div class="spinner-border text-primary" role="status" style="width: 3rem; height: 3rem;">
@@ -355,20 +351,17 @@
                     </div>`;
 
                 $('.fitur-card').on('click', function(e) {
-                    e.preventDefault(); // Mencegah link default
+                    e.preventDefault();
                     var fitur = $(this).data('fitur');
 
-                    modalBody.html(loadingSpinner); // Tampilkan spinner saat data dimuat
-                    // fiturModal.show(); // Pindahkan show() ke dalam complete AJAX atau setelah set HTML statis
-
+                    modalBody.html(loadingSpinner);
                     switch (fitur) {
                         case 'tentang':
                             modalTitle.text('Tentang Kami');
-                            // Konten statis untuk "Tentang Kami"
                             modalBody.html(`
                                 <div class="p-3">
                                     <h4>Selamat Datang di SPNJ!</h4>
-                                    <p>SPNJ (Sistem Pendukung Keputusan Pemilihan Ketua OSIS/BEM/dll. Nama Jabatan) adalah sebuah platform inovatif yang dirancang untuk membantu Anda dalam proses pengambilan keputusan yang objektif dan transparan dalam memilih ketua.</p>
+                                    <p>SPNJ DSS (Sistem Pendukung Keputusan Pemilihan Ketua SPNJ. SPNJ DSS adalah sebuah platform inovatif yang dirancang untuk membantu Anda dalam proses pengambilan keputusan yang objektif dan transparan dalam memilih ketua KSM SPNJ.</p>
                                     <p>Kami menggunakan metode Profile Matching yang telah teruji untuk menganalisis profil calon berdasarkan kriteria-kriteria yang telah ditetapkan. Sistem kami akan memberikan rekomendasi calon terbaik berdasarkan perhitungan yang komprehensif.</p>
                                     <h5>Fitur Utama:</h5>
                                     <ul>
@@ -382,14 +375,14 @@
                                     <p>Kami berharap SPNJ dapat menjadi alat yang bermanfaat bagi organisasi Anda.</p>
                                 </div>
                             `);
-                            fiturModal.show(); // Tampilkan modal setelah konten statis dimuat
+                            fiturModal.show();
                             break;
 
                         case 'calon':
                             modalTitle.text('Daftar Calon Ketua');
-                            // Panggil AJAX untuk mendapatkan data calon ketua
+
                             $.ajax({
-                                url: '{{ route("api.calon.list") }}', // Pastikan rute ini benar dan bisa diakses
+                                url: '{{ route("api.calon.list") }}',
                                 method: 'GET',
                                 success: function(response) {
                                     if (response.success && response.data && response.data.length > 0) {
@@ -416,16 +409,15 @@
                                     modalBody.html('<p class="text-center text-danger p-3">Gagal memuat data calon ketua. Silakan coba lagi.</p>');
                                 },
                                 complete: function(){
-                                    fiturModal.show(); // Tampilkan modal setelah AJAX selesai
+                                    fiturModal.show();
                                 }
                             });
                             break;
 
                         case 'perhitungan':
                             modalTitle.text('Hasil dan Detail Perhitungan');
-                            // Panggil AJAX untuk mendapatkan data perhitungan
                             $.ajax({
-                                url: '{{ route("api.perhitungan.detail") }}', // Pastikan rute ini benar
+                                url: '{{ route("api.perhitungan.detail") }}',
                                 method: 'GET',
                                 success: function(response) {
                                     if (response.success && response.data) {
