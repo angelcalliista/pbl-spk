@@ -14,7 +14,7 @@ class AspekSeeder extends Seeder
     public function run(): void
     {
         // Hapus data lama agar tidak duplikat
-        DB::table('aspek')->truncate();
+        // DB::table('aspek')->truncate();
 
         // Data yang akan diinsert
         $data = [

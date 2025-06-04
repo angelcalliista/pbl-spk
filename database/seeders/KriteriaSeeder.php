@@ -14,7 +14,7 @@ class KriteriaSeeder extends Seeder
     public function run(): void
     {
                 // Hapus data lama agar tidak duplikat
-                DB::table('kriteria')->truncate();
+                // DB::table('kriteria')->truncate();
 
                 // Data yang akan diinsert
                 $data = [
@@ -149,7 +149,7 @@ class KriteriaSeeder extends Seeder
                         'updated_at' => '2025-06-02 05:13:50',
                     ],
                 ];
-        
+
                 // Insert data ke tabel kriteria
                 DB::table('kriteria')->insert($data);
     }

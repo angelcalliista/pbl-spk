@@ -184,7 +184,13 @@
 
 </head>
 <body>
-  <!-- Header -->
+
+<!-- Header -->
+  @if (session('error'))
+    <div class="alert alert-danger"> {{-- Ganti kelas CSS sesuai framework Anda --}}
+        {{ session('error') }}
+    </div>
+  @endif
   <header class="bg-primary text-white px-4 py-3 d-flex justify-content-between align-items-center header-custom">
     <img src="{{ asset('assets/images/logo-spnj.png') }}" width="200px" alt="">
     <ul class="navbar-nav ms-auto">

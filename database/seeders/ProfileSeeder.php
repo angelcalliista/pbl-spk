@@ -14,7 +14,7 @@ class ProfileSeeder extends Seeder
     public function run(): void
     {
         // Hapus data lama agar tidak duplikat
-        DB::table('profile')->truncate();
+        // DB::table('profile')->truncate();
 
         // Data yang akan diinsert
         $data = [

@@ -221,7 +221,7 @@
                 <form method="POST" action="{{ url('register') }}">
                     @csrf
                     <div class="mb-3">
-                        <input type="hidden" name="id_role" value="1" required autofocus />
+                        <input type="hidden" name="id_role" value="2" required autofocus />
                     </div>
                     <div class="mb-3">
                         <input type="text" name="name" class="form-control" placeholder="Nama Lengkap" required autofocus />

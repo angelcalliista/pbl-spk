@@ -4,7 +4,7 @@ namespace Database\Seeders;
 
 use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
-use Illuminate\Support\Facades\DB as DB;
+use Illuminate\Support\Facades\DB as DB; // Anda bisa singkat jadi use Illuminate\Support\Facades\DB;
 
 class AlternatifSeeder extends Seeder
 {
@@ -13,12 +13,12 @@ class AlternatifSeeder extends Seeder
      */
     public function run(): void
     {
-        // Hapus data lama agar tidak duplikat
-        DB::table('alternatifs')->truncate();
+        // Hapus data lama agar tidak duplikat -- SUDAH DITANGANI DI DATABASESEEDER
+        // DB::table('alternatifs')->truncate(); // <-- HAPUS ATAU KOMENTARI BARIS INI
 
         // Data yang akan diinsert
         $data = [
-            [
+             [
                 'id' => 1,
                 'kode' => 'WP1',
                 'nama' => 'Naura Fathiya Azzahra',
