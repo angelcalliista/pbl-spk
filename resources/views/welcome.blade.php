@@ -187,7 +187,7 @@
 
 <!-- Header -->
   @if (session('error'))
-    <div class="alert alert-danger"> {{-- Ganti kelas CSS sesuai framework Anda --}}
+    <div class="alert alert-danger">
         {{ session('error') }}
     </div>
   @endif
@@ -258,7 +258,6 @@
         <h3 class="fitur-section-title text-dark">Jelajahi Fitur Utama Sistem Pendukung Keputusan <span class="text-primary">SPNJ</span></h3>
         <div class="row g-4 justify-content-center">
             <div class="col-md-4 col-sm-6">
-            {{-- Tambahkan atribut data-bs-* dan data-fitur --}}
             <a href="#" class="fitur-card card-tentang" data-bs-toggle="modal" data-bs-target="#fiturModal" data-fitur="tentang">
                 <div class="overlay" style="background-image: url('/images/bg-tentang.jpg');"></div>
                 <div class="icon"><i class="bi bi-info-circle-fill"></i></div>
@@ -293,16 +292,6 @@
         <a href="#" class="mx-2"><i class="bi bi-envelope-fill"></i></a>
         <a href="#" class="mx-2"><i class="bi bi-twitter-x"></i></a>
       </div>
-      <div class="row justify-content-center mb-4">
-        <div class="col-lg-6">
-          <form class="d-flex">
-            <input type="text" class="form-control form-control-footer me-2" placeholder="Cari informasi...">
-            <button class="btn btn-footer-search" type="submit">
-              <i class="bi bi-search"></i>
-            </button>
-          </form>
-        </div>
-      </div>
       <div class="mb-3 footer-links">
         <a href="#" class="mx-2">Terms & Conditions</a> |
         <a href="#" class="mx-2">Privacy Policy</a> |
@@ -322,12 +311,11 @@
             <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
         </div>
         <div class="modal-body" id="fiturModalBody">
-            {{-- Konten modal akan dimuat di sini oleh JavaScript --}}
-            <div class="text-center py-5"> {/* Tambahkan padding agar spinner lebih terlihat bagus */}
-                <div class="spinner-border text-primary" role="status" style="width: 3rem; height: 3rem;"> {/* Buat spinner sedikit lebih besar */}
+            <div class="text-center py-5">
+                <div class="spinner-border text-primary" role="status" style="width: 3rem; height: 3rem;">
                     <span class="visually-hidden">Loading...</span>
                 </div>
-                <p class="mt-2">Memuat data...</p> {/* Tambahkan teks di bawah spinner */}
+                <p class="mt-2">Memuat data...</p>
             </div>
         </div>
         <div class="modal-footer">
@@ -336,8 +324,6 @@
         </div>
     </div>
     </div>
-
-    {{-- TAMBAHKAN JQUERY DI SINI --}}
     <script src="https://code.jquery.com/jquery-3.7.1.min.js" integrity="sha256-/JqT3SQfawRcv/BIHPThkBvs0OEvtFFmqPF/lYI/Cxo=" crossorigin="anonymous"></script>
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
@@ -428,8 +414,6 @@
                                 success: function(response) {
                                     if (response.success && response.data) {
                                         let content = '<div class="p-3">';
-
-                                        // Bagian Ranking
                                         if (response.data.ranking && response.data.ranking.length > 0) {
                                             content += '<h4>Hasil Perangkingan Akhir</h4>';
                                             content += '<div class="table-responsive mb-4"><table class="table table-sm table-striped table-bordered">';
@@ -445,16 +429,12 @@
                                                 `;
                                             });
                                             content += '</tbody></table></div>';
-
-                                            // Bagian Grafik (Chart.js)
                                             content += '<h4>Grafik Skor Akhir Calon</h4>';
                                             content += '<div style="max-width: 600px; margin: 20px auto;"><canvas id="rankingChart"></canvas></div><hr class="my-4">';
 
                                         } else {
                                             content += '<p>Belum ada data perangkingan.</p><hr class="my-4">';
                                         }
-
-                                        // Bagian Detail Perhitungan Per Aspek
                                         if (response.data.detail && response.data.detail.length > 0) {
                                             content += '<h4>Detail Perhitungan per Aspek</h4>';
                                             response.data.detail.forEach(function(aspekData, indexAspek) {
@@ -472,20 +452,17 @@
                                                 if (aspekData.Data && aspekData.Data.length > 0) {
                                                     content += '<div class="table-responsive"><table class="table table-sm table-bordered" style="font-size: 0.85rem;">';
                                                     content += '<thead class="table-light"><tr><th>Alternatif</th>';
-                                                    // Header Kriteria
                                                     if (aspekData.Data[0].ProfileDetail && aspekData.Data[0].ProfileDetail.length > 0) {
                                                         aspekData.Data[0].ProfileDetail.forEach(function(kriteria) {
                                                             content += `<th class="text-center" title="${kriteria.value} (Target: ${kriteria.nilai_kriteria_target})">${kriteria.key}</th>`;
                                                         });
                                                     }
                                                     content += '<th class="text-center">NCF</th><th class="text-center">NSF</th><th class="text-center">Total Nilai Aspek</th></tr></thead><tbody>';
-
-                                                    // Body tabel detail
                                                     aspekData.Data.forEach(function(altData) {
                                                         content += `<tr><td>${altData.Alternatif.nama_alternatif || altData.Alternatif.nama}</td>`;
                                                         if (altData.ProfileDetail && altData.ProfileDetail.length > 0) {
                                                             altData.ProfileDetail.forEach(function(kriteria) {
-                                                                content += `<td class="text-center" title="Nilai: ${kriteria.nilai_profile_alternatif}, Gap: ${kriteria.gap}, Bobot: ${kriteria.bobot_gap}">${kriteria.bobot_gap} ${kriteria.factor == 1 ? '<span class="badge bg-primary text-white">C</span>' : '<span class="badge bg-info text-dark">S</span>'}</td>`; // Tambahkan text-white/dark agar terbaca
+                                                                content += `<td class="text-center" title="Nilai: ${kriteria.nilai_profile_alternatif}, Gap: ${kriteria.gap}, Bobot: ${kriteria.bobot_gap}">${kriteria.bobot_gap} ${kriteria.factor == 1 ? '<span class="badge bg-primary text-white">C</span>' : '<span class="badge bg-info text-dark">S</span>'}</td>`;
                                                             });
                                                         } else {
                                                             let colspanCount = (aspekData.Data[0].ProfileDetail || []).length > 0 ? (aspekData.Data[0].ProfileDetail || []).length : 1;
@@ -505,10 +482,10 @@
                                             content += '<p>Belum ada detail perhitungan per aspek.</p>';
                                         }
 
-                                        content += '</div>'; // End p-3
+                                        content += '</div>';
                                         modalBody.html(content);
 
-                                        // Inisialisasi Chart setelah konten dimuat
+
                                         if (response.data.ranking && response.data.ranking.length > 0) {
                                             renderRankingChart(response.data.ranking);
                                         }
@@ -522,7 +499,7 @@
                                     modalBody.html('<p class="text-center text-danger p-3">Gagal memuat data perhitungan. Silakan coba lagi.</p>');
                                 },
                                 complete: function(){
-                                    fiturModal.show(); // Tampilkan modal setelah AJAX selesai
+                                    fiturModal.show();
                                 }
                             });
                             break;
@@ -530,7 +507,7 @@
                         default:
                             modalTitle.text('Informasi Fitur');
                             modalBody.html('<p class="text-center p-3">Fitur tidak dikenal.</p>');
-                            fiturModal.show(); // Tampilkan modal
+                            fiturModal.show();
                     }
                 });
 
@@ -545,9 +522,7 @@
 
                     const labels = rankingData.map(item => item.Alternatif.nama_alternatif || item.Alternatif.nama);
                     const scores = rankingData.map(item => item.Score);
-
-                    // Hancurkan chart lama jika ada untuk mencegah duplikasi saat modal dibuka berkali-kali
-                    let chartStatus = Chart.getChart(canvasElement); // Berikan elemen canvas atau ID
+                    let chartStatus = Chart.getChart(canvasElement);
                     if (chartStatus != undefined) {
                         chartStatus.destroy();
                     }

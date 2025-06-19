@@ -12,25 +12,22 @@
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
     <style>
         :root {
-            --brand-blue: rgb(8, 112, 223); /* Warna biru khas Anda */
+            --brand-blue: rgb(8, 112, 223);
             --brand-blue-darker: rgb(6, 90, 180);
             --text-dark: #333;
             --text-muted: #6c757d;
             --light-bg: #f8f9fa;
         }
-
         body {
             font-family: 'Poppins', sans-serif;
             margin: 0;
             padding: 0;
-            overflow-x: hidden; /* Mencegah scroll horizontal jika ada animasi keluar batas */
+            overflow-x: hidden;
         }
-
         .login-container-wrapper {
             display: flex;
             min-height: 100vh;
         }
-
         .illustration-column {
             background-color: var(--brand-blue);
             color: white;
@@ -42,18 +39,15 @@
             text-align: center;
             animation: slideInLeft 0.8s ease-out;
         }
-
         .illustration-column .brand-logo-large {
-            width: 120px; /* Ukuran logo lebih besar */
+            width: 120px;
             margin-bottom: 1.5rem;
         }
-
         .illustration-column h1 {
             font-weight: 600;
             font-size: 2.2rem;
             margin-bottom: 1rem;
         }
-
         .illustration-column p {
             font-size: 1.1rem;
             max-width: 450px;
@@ -61,38 +55,33 @@
             opacity: 0.9;
             margin-bottom: 2rem;
         }
-
         .illustration-column .hero-illustration {
             max-width: 80%;
             height: auto;
-            max-height: 300px; /* Batasi tinggi ilustrasi */
+            max-height: 300px;
         }
-
         .form-column {
             background-color: white;
             display: flex;
             justify-content: center;
             align-items: center;
             padding: 2rem;
-            animation: fadeInRight 0.8s ease-out 0.2s; /* Delay sedikit */
-            animation-fill-mode: both; /* Agar state akhir animasi tetap */
+            animation: fadeInRight 0.8s ease-out 0.2s;
+            animation-fill-mode: both;
         }
-
         .login-form-container {
             width: 100%;
-            max-width: 400px; /* Lebar form */
-            padding: 2.5rem; /* Padding di dalam card form */
-            background-color: #fff; /* Bisa juga var(--light-bg) jika ingin sedikit off-white */
+            max-width: 400px;
+            padding: 2.5rem;
+            background-color: #fff;
             border-radius: 12px;
-            /* box-shadow: 0 8px 25px rgba(0, 0, 0, 0.1); */ /* Shadow jika form tidak full screen di mobile */
-        }
 
+        }
         .form-column .form-logo-small {
             display: block;
             width: 70px;
             margin: 0 auto 1.5rem auto;
         }
-
         .form-column .login-title {
             font-size: 1.8rem;
             font-weight: 600;
@@ -106,7 +95,6 @@
             text-align: center;
             margin-bottom: 2rem;
         }
-
         .form-control {
             border-radius: 8px;
             padding: 0.85rem 1.1rem;
@@ -114,13 +102,11 @@
             transition: border-color .15s ease-in-out,box-shadow .15s ease-in-out;
             background-color: #fdfdfd;
         }
-
         .form-control:focus {
             border-color: var(--brand-blue);
             box-shadow: 0 0 0 0.2rem rgba(8, 112, 223, 0.25);
             background-color: #fff;
         }
-
         .input-group .form-control { border-right: 0; }
         .input-group .input-group-text {
             background-color: #fdfdfd;
@@ -136,8 +122,9 @@
          .input-group .form-control:not(:focus) + .input-group-text {
             border-color: #e0e0e0;
         }
-        .input-group-text i { color: var(--text-muted); }
-
+        .input-group-text i {
+            color: var(--text-muted);
+        }
 
         .btn-login {
             background-color: var(--brand-blue);
@@ -149,7 +136,6 @@
             letter-spacing: 0.5px;
             transition: background-color 0.2s ease, transform 0.2s ease;
         }
-
         .btn-login:hover {
             background-color: var(--brand-blue-darker);
             border-color: var(--brand-blue-darker);
@@ -181,21 +167,17 @@
             from { transform: translateX(50px); opacity: 0; }
             to { transform: translateX(0); opacity: 1; }
         }
-
-        /* Responsive: Pada layar kecil, kolom ilustrasi disembunyikan */
-        @media (max-width: 991.98px) { /* breakpoint lg Bootstrap */
+        @media (max-width: 991.98px) {
             .illustration-column {
                 display: none;
             }
             .form-column {
-                /* background-color: var(--brand-blue); Jika ingin full biru di mobile */
-                /* Untuk menjaga konsistensi dengan desktop: */
-                 background-color: #f0f4f8; /* Latar belakang netral di mobile */
-                 padding: 1rem; /* Kurangi padding di mobile */
+                 background-color: #f0f4f8;
+                 padding: 1rem;
             }
             .login-form-container {
-                padding: 1.5rem; /* Kurangi padding card di mobile */
-                box-shadow: 0 8px 25px rgba(0, 0, 0, 0.1); /* Tambah shadow jika form tidak full screen */
+                padding: 1.5rem;
+                box-shadow: 0 8px 25px rgba(0, 0, 0, 0.1);
             }
         }
 
@@ -226,12 +208,14 @@
                     <div class="alert alert-danger alert-dismissible fade show" role="alert">
                         <ul class="mb-0">
                             @foreach ($errors->all() as $error)
-                                <li>{{ $error }}</li>
+                                {{-- Gunakan {!! !!} agar tag <span> pada timer bisa dirender --}}
+                                <li>{!! $error !!}</li>
                             @endforeach
                         </ul>
                         <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
                     </div>
                 @endif
+
 
                 <form method="POST" action="{{ url('login-proses') }}">
                     @csrf
@@ -272,6 +256,22 @@
             toggleIcon.classList.add("bi-eye-slash-fill");
         }
     }
+</script>
+<script>
+    document.addEventListener("DOMContentLoaded", function () {
+        const retryTimer = document.getElementById("retry-timer");
+        if (retryTimer) {
+            let seconds = parseInt(retryTimer.innerText);
+            const interval = setInterval(() => {
+                seconds--;
+                retryTimer.innerText = seconds;
+                if (seconds <= 0) {
+                    clearInterval(interval);
+                    retryTimer.innerText = "silakan refresh halaman";
+                }
+            }, 1000);
+        }
+    });
 </script>
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
 </body>

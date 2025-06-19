@@ -16,9 +16,17 @@ Route::get('/', function () {
 Route::get('/calon-list', [FiturInfoController::class, 'getCalonList'])->name('api.calon.list');
 Route::get('/perhitungan-detail', [FiturInfoController::class, 'getPerhitunganDetail'])->name('api.perhitungan.detail');
 
+// Route::middleware('guest')->group(function () {
+//     Route::get('/login', [LoginController::class, 'showLoginForm'])->name('login');
+//     Route::post('/login-proses', [LoginController::class, 'login'])->name('login.proses');
+//     Route::get('/registrasi', [LoginController::class, 'showRegisterForm'])->name('register');
+//     Route::post('/register', [LoginController::class, 'register'])->name('register.store');
+// });
 Route::middleware('guest')->group(function () {
     Route::get('/login', [LoginController::class, 'showLoginForm'])->name('login');
-    Route::post('/login-proses', [LoginController::class, 'login'])->name('login.proses');
+    Route::post('/login-proses', [LoginController::class, 'login'])
+        ->name('login.proses');
+
     Route::get('/registrasi', [LoginController::class, 'showRegisterForm'])->name('register');
     Route::post('/register', [LoginController::class, 'register'])->name('register.store');
 });
