@@ -25,7 +25,7 @@ class KriteriaController extends Controller
         return response()->json($kriteria);
     }
 
-     public function create()
+    public function create()
     {
         $aspeks = Aspek::all();
         return view('kriteria.create', compact('aspeks'));
@@ -82,7 +82,6 @@ class KriteriaController extends Controller
          $kriterium->update($validatedData); // Menggunakan $validatedData lebih aman
 
         return redirect()->route('admin.kriteria.index')->with('success', 'Kriteria berhasil diperbarui.');
-
     }
 
     public function destroy(Kriteria $kriterium)

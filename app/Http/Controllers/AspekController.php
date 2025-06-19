@@ -52,7 +52,6 @@ class AspekController extends Controller
         ]);
 
         return redirect()->route('admin.aspek.index')->with('success', 'Aspek berhasil ditambahkan.');
-
     }
 
     public function edit(Aspek $aspek)
